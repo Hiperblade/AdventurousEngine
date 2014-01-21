@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/animatronic.js"></script>
+    <script type="text/javascript" src="js/animatronicsController.js"></script>
+    <script type="text/javascript" src="js/engine.js"></script>
+</head>
+<body>
+    <svg width="200" height="200">
+        <path d="M50,80 L20,80 L50,80 L80,80 L50,80" style="stroke:#660000; fill:none;"/>
+        <path d="M50,80 L20,40 L50,80" style="stroke:#660000; fill:none;"/>
+        <path d="M50,80 L80,40 L50,80" style="stroke:#660000; fill:none;"/>
+
+        <circle id="ball" cx="50" cy="80" r="10" stroke="green" stroke-width="4" fill="yellow">
+            <animateMotion
+                    id="ferma"
+                    path="M0,0 L-2,-2 L0,0 L-2,2 L0,0 L2,2 L0,0 l2,-2 z"
+                    begin="indefinite" dur="2s"
+                    onend="Palla.onEnd();"
+                    repeatCount="indefinite" onbegin="Palla.onBeginStatic();"/>
+            <animateMotion
+                    id="loopS"
+                    path="M0,0 L-30,0 L0,0"
+                    begin="indefinite" dur="3s"
+                    onend="Palla.onEnd();"/>
+            <animateMotion
+                    id="loopD"
+                    path="M0,0 L30,0 L0,0"
+                    begin="indefinite" dur="3s"
+                    onend="Palla.onEnd();"/>
+            <animateMotion
+                    id="sinistra"
+                    path="M0,0 L-30,-40 L0,0"
+                    begin="indefinite" dur="3s"
+                    onend="Palla.onEnd();"/>
+            <animateMotion
+                    id="destra"
+                    path="M0,0 L30,-40 L0,0"
+                    begin="indefinite" dur="3s"
+                    onend="Palla.onEnd();"/>
+        </circle>
+
+        <script type="text/javascript">
+            var Palla = new AnimatronicConstructor("ball", {
+                "loop": ["loopS", "loopD"],
+                "destra": ["loopS", "destra"],
+                "sinistra": ["sinistra", "loopD"],
+                "entrambe": ["sinistra", "destra"],
+                "ferma": ["ferma"],
+                "test": ["loopS", "ferma"]
+            });
+        </script>
+    </svg>
+
+    <script type="text/javascript">
+        function text()
+        {
+            Palla.setAnimation('test', null, function(){ alert("Animazione di prova terminata"); } );
+        }
+
+        function setLoop()
+        {
+            Palla.setAnimationLoop('loop');
+        }
+    </script>
+
+    <button onclick="text();">text</button>
+    <button onclick="setLoop();">Base</button>
+    <button onclick="Palla.setAnimation('sinistra', setLoop);">Sinistra</button>
+    <button onclick="Palla.setAnimation('destra', setLoop);">Destra</button>
+    <button onclick="Palla.setAnimation('entrambe', setLoop);">Entrambe</button>
+    <button onclick="Palla.setAnimation('ferma');">Ferma</button>
+
+</body>
+</html>
