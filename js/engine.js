@@ -7,7 +7,7 @@ function Scene()
 function Object()
 {
     // id
-    // layer
+    // layer // z-index
     // position (x, y)
     // image
 

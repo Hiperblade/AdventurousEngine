@@ -136,7 +136,18 @@
 			<set                xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_4.end" fill="freeze"></set>
 			<set id="cat_r_r_5" xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_4.end" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_5.end" fill="freeze"
-								onbegin="Cat.onEnd();"></set>
+                    onbegin="Cat.onEnd();"></set>
+
+            <!--set id="cat_r_r_1" xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
+            <set                xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_1.end" fill="freeze"></set>
+            <set id="cat_r_r_2" xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
+            <set                xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_2.end" fill="freeze"></set>
+            <set id="cat_r_r_3" xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
+            <set                xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_3.end" fill="freeze"></set>
+            <set id="cat_r_r_4" xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
+            <set                xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_4.end" fill="freeze"></set>
+            <set id="cat_r_r_5" xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
+            <set                xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_5.end" fill="freeze"></set-->
 
 			<!-- Right Stop -->
 			<image id="catF_r_1" width="81" height="48" xlink:href="Cat/cat_r_1.png" style="visibility:hidden;"></image>
@@ -177,8 +188,7 @@
 			<set id="cat_l_2"  xlink:href="#catF_l_2" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_1.end" dur="0.2s" fill="freeze"></set>
 			<set               xlink:href="#catF_l_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_2.end" fill="freeze"></set>
 			<set id="cat_l_3"  xlink:href="#catF_l_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_2.end" dur="0.2s" fill="freeze"></set>
-			<set               xlink:href="#catF_l_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_3.end" fill="freeze"
-							   onbegin="Cat.onEnd();"></set>
+			<set               xlink:href="#catF_l_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_3.end" fill="freeze" onbegin="Cat.onEnd();"></set>
 
 			<!--  -->
 		</g>
@@ -192,7 +202,7 @@
 				"stopDown": ["cat_d_1"],
 				"runDown": ["cat_d_r_1"],
 				"stopRight": ["cat_r_1"],
-				"runRight": ["cat_r_r_1"],
+				"runRight": ["cat_r_r_1", "cat_r_r_2", "cat_r_r_3", "cat_r_r_4" ,"cat_r_r_5"],
 				"stopLeft": ["cat_l_1"],
 				"runLeft": ["cat_l_r_1"]
 			});
@@ -201,11 +211,12 @@
 	</div>
 
 	<script>
-		var Direction = { Up: 'up', Down: 'down', Left: 'left', Right: 'right' }
+		var Direction = { Up: 'up', Down: 'down', Left: 'left', Right: 'right' };
 
 		function setLoop()
 		{
-			Cat.setAnimationLoop("sit");
+            Cat.setAnimationLoop("sit");
+            currentRunDirection = null;
 		}
 
 		function moveCat()
@@ -298,23 +309,28 @@
 			actor.css('top', (pos.top + y) + 'px');
 		}
 
+        var currentRunDirection = null;
 		function setRunAnimationCat(dir)
 		{
-			switch (dir)
-			{
-				case Direction.Down:
-					Cat.setAnimationLoop('runDown');
-					break;
-				case Direction.Up:
-					Cat.setAnimationLoop('runUp');
-					break;
-				case Direction.Left:
-					Cat.setAnimationLoop('runLeft');
-					break;
-				case Direction.Right:
-					Cat.setAnimationLoop('runRight');
-					break;
-			}
+            if(currentRunDirection != dir)
+            {
+                currentRunDirection = dir;
+                switch (dir)
+                {
+                    case Direction.Down:
+                        Cat.setAnimationLoop('runDown');
+                        break;
+                    case Direction.Up:
+                        Cat.setAnimationLoop('runUp');
+                        break;
+                    case Direction.Left:
+                        Cat.setAnimationLoop('runLeft');
+                        break;
+                    case Direction.Right:
+                        Cat.setAnimationLoop('runRight');
+                        break;
+                }
+            }
 		}
 
 		var targetLocation = null;

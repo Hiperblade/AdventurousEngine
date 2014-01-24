@@ -99,6 +99,22 @@ function AnimatronicConstructor(mainElementId, flows)
         }
     };
 
+    var _forceAnimationLoop = function (flowName, beginCallback, endCallback)
+    {
+        _forceAnimation(flowName, beginCallback, endCallback, -1);
+    };
+
+    var _forceAnimation = function (flowName, beginCallback, endCallback, repeatCount)
+    {
+        if(repeatCount == null)
+        {
+            repeatCount = 1;
+        }
+
+        _nextFlow = null;
+        _startAnimation(flowName, beginCallback, endCallback, repeatCount);
+    };
+
     var _resetCurrentFlow = function()
     {
         _currentFlow = null;
@@ -110,10 +126,10 @@ function AnimatronicConstructor(mainElementId, flows)
         }
     };
 
-	var _getCurrentAnimation = function()
-	{
-		return _flows[_currentFlow][_step];
-	};
+	//var _getCurrentAnimation = function()
+	//{
+	//	return _flows[_currentFlow][_step];
+	//};
 
     // ------------------------------------------------
 
@@ -121,5 +137,7 @@ function AnimatronicConstructor(mainElementId, flows)
     this.onBeginStatic = _resetCurrentFlow;
     this.setAnimation = _setAnimation;
     this.setAnimationLoop = _setAnimationLoop;
-	this.getCurrentAnimation = _getCurrentAnimation;
+    this.forceAnimation = _forceAnimation;
+    this.forceAnimationLoop = _forceAnimationLoop;
+    //this.getCurrentAnimation = _getCurrentAnimation;
 }
