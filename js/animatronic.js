@@ -110,10 +110,16 @@ function AnimatronicConstructor(mainElementId, flows)
         }
     };
 
+	var _getCurrentAnimation = function()
+	{
+		return _flows[_currentFlow][_step];
+	};
+
     // ------------------------------------------------
 
     this.onEnd = _animationStep;
     this.onBeginStatic = _resetCurrentFlow;
     this.setAnimation = _setAnimation;
     this.setAnimationLoop = _setAnimationLoop;
+	this.getCurrentAnimation = _getCurrentAnimation;
 }

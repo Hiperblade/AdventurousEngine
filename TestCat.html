@@ -6,11 +6,38 @@
     <script type="text/javascript" src="js/animatronic.js"></script>
     <script type="text/javascript" src="js/animatronicsController.js"></script>
     <script type="text/javascript" src="js/engine.js"></script>
+	<style TYPE="text/css">
+		.actor
+		{
+			position: absolute;
+			top: 100px;
+			left: 100px;
+			width: 81px;
+			height: 48px;
+		}
+
+		.scene
+		{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 540px;
+			height: 338px;
+		}
+
+		.controlPanel
+		{
+			position: absolute;
+			top: 350px;
+			left: 0px;
+		}
+	</style>
 </head>
 <body>
 	<!-- ------------- -->
-	<svg xmlns="http://www.w3.org/2000/svg" width='100%' height='100%'>
-		<g id="cat">
+	<div class="actor" id="actorCat">
+	<svg xmlns="http://www.w3.org/2000/svg">
+		<g id="cat" class="actor">
 			<!-- Sit -->
 			<image id="catF_s_1" width="81" height="48" xlink:href="Cat/cat_s_1.png" style="visibility:hidden;"></image>
 			<image id="catF_s_2" width="81" height="48" xlink:href="Cat/cat_s_2.png" style="visibility:hidden;"></image>
@@ -54,11 +81,7 @@
 			<set id="cat_u_r_4" xlink:href="#catF_u_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_u_r_3.end" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_u_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_u_r_4.end" fill="freeze"></set>
 			<set id="cat_u_r_5" xlink:href="#catF_u_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_u_r_4.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_u_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_u_r_5.end" fill="freeze"></set>
-			<set id="cat_u_r_6" xlink:href="#catF_u_r_6" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_u_r_5.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_u_r_6" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_u_r_6.end" fill="freeze"></set>
-			<set id="cat_u_r_7" xlink:href="#catF_u_r_7" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_u_r_6.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_u_r_7" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_u_r_7.end" fill="freeze"
+			<set                xlink:href="#catF_u_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_u_r_5.end" fill="freeze"
 							    onbegin="Cat.onEnd();"></set>
 			<!-- Up Stop -->
 			<image id="catF_u_1" width="81" height="48" xlink:href="Cat/cat_u_1.png" style="visibility:hidden;"></image>
@@ -86,11 +109,7 @@
 			<set id="cat_d_r_4" xlink:href="#catF_d_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_d_r_3.end" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_d_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_d_r_4.end" fill="freeze"></set>
 			<set id="cat_d_r_5" xlink:href="#catF_d_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_d_r_4.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_d_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_d_r_5.end" fill="freeze"></set>
-			<set id="cat_d_r_6" xlink:href="#catF_d_r_6" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_d_r_5.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_d_r_6" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_d_r_6.end" fill="freeze"></set>
-			<set id="cat_d_r_7" xlink:href="#catF_d_r_7" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_d_r_6.end" dur="0.2s" fill="freeze"></set>
-			<set                xlink:href="#catF_d_r_7" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_d_r_7.end" fill="freeze"
+			<set                xlink:href="#catF_d_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_d_r_5.end" fill="freeze"
 								onbegin="Cat.onEnd();"></set>
 			<!-- Down Stop -->
 			<image id="catF_d_1" width="81" height="48" xlink:href="Cat/cat_d_1.png" style="visibility:hidden;"></image>
@@ -180,6 +199,7 @@
 			});
 		</script>
 	</svg>
+	</div>
 
 	<script>
 		function setLoop()
@@ -187,16 +207,66 @@
 			Cat.setAnimationLoop("sit");
 		}
 
+		function moveCat()
+		{
+			var x = 0;
+			var y = 0;
+			switch(Cat.getCurrentAnimation())
+			{
+				case "cat_u_r":
+					y = -2;
+					break;
+				case "cat_d_r":
+					y = 2;
+					break;
+				case "cat_r_r":
+					x = 1;
+					break;
+				case "cat_l_r":
+					x = -1;
+					break;
+				default :
+					return;
+			}
+
+			var tmp = $("#actorCat");
+			var pos = tmp.position();
+			tmp.css('left', (pos.left + x) + 'px');
+			tmp.css('top', (pos.top + y) + 'px');
+		}
+
 		setLoop();
+
+		window.setInterval("moveCat()", 100);
 	</script>
 
 	<!-- ------------- -->
 
+	<svg class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+		<g id="backClass">
+			<image width="540" height="338" xlink:href="scenes/scene.jpg"></image>
+		</g>
+	</svg>
+	<div class="scene" id="area_1"></div>
+	<svg class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+		<use id="frontClass" xlink:href="#backClass" clip-path="url(#clipArea)"></use>
+		<defs>
+			<clipPath id="clipArea">
+				<path d="m 192.54091,219.49886 8.20051,0 -1.36675,4.2711 -4.78363,5.63784 -3.58771,1.5376 -0.51254,-4.44194 0.17084,-5.12532 z m -19.64703,0 13.15497,-0.17084 -3.9294,13.15497 -4.95447,14.18003 -4.44194,-1.02506 -5.467,-5.29616 -0.51253,-7.51713 3.41687,-6.15037 z m -12.47159,1.02507 7.17544,0 -0.68338,4.10025 -3.24603,6.15037 -2.22097,-3.41687 -1.02506,-4.10026 z M 0.375,95.75 l 0,242.25 116.5,0.0625 0,0.0937 55.625,-0.0625 141.65625,0.0937 0.3125,-0.21875 225.5625,-0.21875 0.25,-146.3125 -5.15625,0.0625 1.96875,-9 -5.3125,-2.84375 -9.96875,1.9375 -18.40625,12.375 -5.59375,6.125 -3.15625,-5.28125 -5.15625,-3.1875 -5.1875,4.9375 -6.25,9.625 -4.53125,9.75 -2.78125,13.34375 -16.40625,8.8125 -6.53125,-22.46875 -4.84375,-13.15625 -2.6875,-5.25 -3.84375,-2.96875 -5.03125,15.1875 -2.875,22.59375 -3.03125,23.3125 -6.5625,3.5625 L 416.53125,248 l -6.375,-14.5 -4.28125,-2.8125 -6.25,12.4375 -1.6875,15.28125 -0.71875,15.625 -23.4375,15.5625 -19.59375,-9.1875 -18.84375,-7.96875 -32.375,-9.1875 -3.34375,-0.71875 -0.625,-1.125 3.03125,-8.0625 -0.5,-29.3125 L 297.5,209.375 l -2.53125,-9.0625 -8.59375,0 -8.59375,5.03125 -9.09375,9.59375 -10.59375,16.6875 -1,5.53125 -4.0625,14.65625 -0.625,1.09375 -65.65625,-4.53125 4.6875,-6.65625 11.59375,-13.65625 2.03125,-7.5625 10.59375,-1 5.0625,-5.5625 16.15625,-68.6875 -2.53125,-6.0625 2.53125,-3.03125 -3.03125,-13.625 -7.5625,-10.125 -12.125,-2 -12.125,6.5625 -24.75,19.1875 -13.125,15.65625 -8.09375,12.625 -7.5625,19.1875 -13.125,39.90625 18.6875,-1 2,15.15625 5.0625,10.59375 2.9375,4.3125 -14.25,2.9375 -15,2.90625 -15.09375,8.28125 -4.0625,-12.375 L 94.4375,221.5 76.78125,177.0625 33.84375,137.65625 0.375,95.75 z"></path>
+			</clipPath>
+		</defs>
+	</svg>
+
+	<script>
+		$('#area_1')[0].appendChild($('#actorCat')[0]);
+	</script>
 <br/>
-	<button onclick="Cat.setAnimationLoop('runLeft', setLoop);">Sinistra</button>
-	<button onclick="Cat.setAnimationLoop('runRight', setLoop);">Destra</button>
-	<button onclick="Cat.setAnimationLoop('runUp', setLoop);">Su</button>
-	<button onclick="Cat.setAnimationLoop('runDown', setLoop);">Giu</button>
-	<button onclick="Cat.setAnimationLoop('roar', setLoop);">Roar</button>
+	<div class="controlPanel">
+		<button onclick="Cat.setAnimationLoop('runLeft', setLoop);">Sinistra</button>
+		<button onclick="Cat.setAnimationLoop('runRight', setLoop);">Destra</button>
+		<button onclick="Cat.setAnimationLoop('runUp', setLoop);">Su</button>
+		<button onclick="Cat.setAnimationLoop('runDown', setLoop);">Giu</button>
+		<button onclick="Cat.setAnimationLoop('roar', setLoop);">Roar</button>
+	</div>
 </body>
 </html>
