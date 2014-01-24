@@ -202,6 +202,8 @@
 	</div>
 
 	<script>
+		var Direction = { Up: 'up', Down: 'down', Left: 'left', Right: 'right' }
+
 		function setLoop()
 		{
 			Cat.setAnimationLoop("sit");
@@ -209,39 +211,132 @@
 
 		function moveCat()
 		{
-			var x = 0;
-			var y = 0;
-			switch(Cat.getCurrentAnimation())
+			if(targetLocation != null)
 			{
-				case "cat_u_r":
-					y = -2;
-					break;
-				case "cat_d_r":
-					y = 2;
-					break;
-				case "cat_r_r":
-					x = 1;
-					break;
-				case "cat_l_r":
-					x = -1;
-					break;
-				default :
-					return;
-			}
+				var actor = $("#actorCat");
+				var pos = actor.position();
+				var deltaL = targetLocation.x - pos.left;
+				var deltaT = targetLocation.y - pos.top;
+				if(Math.abs(deltaL) < 5)
+					deltaL = 0;
+				if(Math.abs(deltaT) < 5)
+					deltaT = 0;
 
-			var tmp = $("#actorCat");
-			var pos = tmp.position();
-			tmp.css('left', (pos.left + x) + 'px');
-			tmp.css('top', (pos.top + y) + 'px');
+				if(deltaL != 0 || deltaT != 0)
+				{
+					var dirL;
+					if(deltaL == 0)
+						dirL = null;
+					else if(deltaL > 0)
+						dirL = Direction.Right;
+					else
+						dirL = Direction.Left;
+
+					var dirT;
+					if(deltaT == 0)
+						dirT = null;
+					else if(deltaT > 0)
+						dirT = Direction.Down;
+					else
+						dirT = Direction.Up;
+
+					if(Math.abs(deltaL) >= Math.abs(deltaT))
+					{
+						setRunAnimationCat(dirL);
+						setPositionCat(actor, dirL, dirT);
+					}
+					else
+					{
+						setRunAnimationCat(dirT);
+						setPositionCat(actor, dirT, dirL);
+					}
+				}
+				else
+				{
+					targetLocation = null;
+					setLoop();
+				}
+			}
 		}
 
-		setLoop();
+		function setPositionCat(actor, dirP, dirS)
+		{
+			var x;
+			var y;
+			switch (dirP)
+			{
+				case Direction.Down:
+					y = 4;
+					break;
+				case Direction.Up:
+					y = -4;
+					break;
+				case Direction.Left:
+					x = -4;
+					break;
+				case Direction.Right:
+					x = 4;
+					break;
+			}
+			switch (dirS)
+			{
+				case Direction.Down:
+					y = 1;
+					break;
+				case Direction.Up:
+					y = -1;
+					break;
+				case Direction.Left:
+					x = -1;
+					break;
+				case Direction.Right:
+					x = 1;
+					break;
+			}
 
+			var pos = actor.position();
+			actor.css('left', (pos.left + x) + 'px');
+			actor.css('top', (pos.top + y) + 'px');
+		}
+
+		function setRunAnimationCat(dir)
+		{
+			switch (dir)
+			{
+				case Direction.Down:
+					Cat.setAnimationLoop('runDown');
+					break;
+				case Direction.Up:
+					Cat.setAnimationLoop('runUp');
+					break;
+				case Direction.Left:
+					Cat.setAnimationLoop('runLeft');
+					break;
+				case Direction.Right:
+					Cat.setAnimationLoop('runRight');
+					break;
+			}
+		}
+
+		var targetLocation = null;
+		function goTo()
+		{
+			// base del gatto (44; 37)
+			targetLocation = { x: currentMousePos.x - 44, y: currentMousePos.y - 37 };
+		}
+
+		var currentMousePos = { x: -1, y: -1 };
+		$(document).mousemove(function(event) {
+			currentMousePos.x = event.pageX;
+			currentMousePos.y = event.pageY;
+		});
+
+		setLoop();
 		window.setInterval("moveCat()", 100);
 	</script>
 
 	<!-- ------------- -->
-
+<div id="screen" class="scene" onclick="goTo()">
 	<svg class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
 		<g id="backClass">
 			<image width="540" height="338" xlink:href="scenes/scene.jpg"></image>
@@ -256,17 +351,13 @@
 			</clipPath>
 		</defs>
 	</svg>
-
+</div>
 	<script>
 		$('#area_1')[0].appendChild($('#actorCat')[0]);
 	</script>
 <br/>
 	<div class="controlPanel">
-		<button onclick="Cat.setAnimationLoop('runLeft', setLoop);">Sinistra</button>
-		<button onclick="Cat.setAnimationLoop('runRight', setLoop);">Destra</button>
-		<button onclick="Cat.setAnimationLoop('runUp', setLoop);">Su</button>
-		<button onclick="Cat.setAnimationLoop('runDown', setLoop);">Giu</button>
-		<button onclick="Cat.setAnimationLoop('roar', setLoop);">Roar</button>
+		<button onclick="Cat.setAnimation('roar', setLoop);">Roar</button>
 	</div>
 </body>
 </html>
