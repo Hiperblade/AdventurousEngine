@@ -16,6 +16,15 @@
 			height: 48px;
 		}
 
+		.fish
+		{
+			position: absolute;
+			top: 150px;
+			left: 250px;
+			width: 71px;
+			height: 60px;
+		}
+
 		.scene
 		{
 			position: absolute;
@@ -30,6 +39,11 @@
 			position: absolute;
 			top: 350px;
 			left: 0px;
+		}
+
+		#frontClass
+		{
+			opacity: 0.9;
 		}
 	</style>
 </head>
@@ -126,28 +140,17 @@
 			<image id="catF_r_r_3" width="81" height="48" xlink:href="Cat/cat_r_r_3.png" style="visibility:hidden;"></image>
 			<image id="catF_r_r_4" width="81" height="48" xlink:href="Cat/cat_r_r_4.png" style="visibility:hidden;"></image>
 			<image id="catF_r_r_5" width="81" height="48" xlink:href="Cat/cat_r_r_5.png" style="visibility:hidden;"></image>
-			<set id="cat_r_r_1" xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze"></set>
+			<set id="cat_r_r_1" xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_1.end" fill="freeze"></set>
-			<set id="cat_r_r_2" xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_1.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_r_r_2" xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_1.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_2.end" fill="freeze"></set>
-			<set id="cat_r_r_3" xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_2.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_r_r_3" xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_2.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_3.end" fill="freeze"></set>
-			<set id="cat_r_r_4" xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_3.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_r_r_4" xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_3.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_4.end" fill="freeze"></set>
-			<set id="cat_r_r_5" xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_4.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_r_r_5" xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_r_r_4.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_5.end" fill="freeze"
                     onbegin="Cat.onEnd();"></set>
-
-            <!--set id="cat_r_r_1" xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
-            <set                xlink:href="#catF_r_r_1" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_1.end" fill="freeze"></set>
-            <set id="cat_r_r_2" xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
-            <set                xlink:href="#catF_r_r_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_2.end" fill="freeze"></set>
-            <set id="cat_r_r_3" xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
-            <set                xlink:href="#catF_r_r_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_3.end" fill="freeze"></set>
-            <set id="cat_r_r_4" xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
-            <set                xlink:href="#catF_r_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_4.end" fill="freeze"></set>
-            <set id="cat_r_r_5" xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze" onend="Cat.onEnd();"></set>
-            <set                xlink:href="#catF_r_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_r_r_5.end" fill="freeze"></set-->
 
 			<!-- Right Stop -->
 			<image id="catF_r_1" width="81" height="48" xlink:href="Cat/cat_r_1.png" style="visibility:hidden;"></image>
@@ -167,15 +170,15 @@
 			<image id="catF_l_r_3" width="81" height="48" xlink:href="Cat/cat_l_r_3.png" style="visibility:hidden;"></image>
 			<image id="catF_l_r_4" width="81" height="48" xlink:href="Cat/cat_l_r_4.png" style="visibility:hidden;"></image>
 			<image id="catF_l_r_5" width="81" height="48" xlink:href="Cat/cat_l_r_5.png" style="visibility:hidden;"></image>
-			<set id="cat_l_r_1" xlink:href="#catF_l_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    dur="0.2s" fill="freeze"></set>
+			<set id="cat_l_r_1" xlink:href="#catF_l_r_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"    end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_l_r_1" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_r_1.end" fill="freeze"></set>
-			<set id="cat_l_r_2" xlink:href="#catF_l_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_1.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_l_r_2" xlink:href="#catF_l_r_2" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_1.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_l_r_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_r_2.end" fill="freeze"></set>
-			<set id="cat_l_r_3" xlink:href="#catF_l_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_2.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_l_r_3" xlink:href="#catF_l_r_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_2.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_l_r_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_r_3.end" fill="freeze"></set>
-			<set id="cat_l_r_4" xlink:href="#catF_l_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_3.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_l_r_4" xlink:href="#catF_l_r_4" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_3.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_l_r_4" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_r_4.end" fill="freeze"></set>
-			<set id="cat_l_r_5" xlink:href="#catF_l_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_4.end" dur="0.2s" fill="freeze"></set>
+			<set id="cat_l_r_5" xlink:href="#catF_l_r_5" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_l_r_4.end" end="cancel.click" dur="0.2s" fill="freeze"></set>
 			<set                xlink:href="#catF_l_r_5" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_l_r_5.end" fill="freeze"
 								onbegin="Cat.onEnd();"></set>
 
@@ -208,6 +211,94 @@
 			});
 		</script>
 	</svg>
+	</div>
+
+	<div class="fish" id="actorFish">
+		<svg xmlns="http://www.w3.org/2000/svg">
+			<g id="fish" class="fish">
+				<!-- Sit -->
+				<image id="fishF_1"   width="71" height="60" xlink:href="Fish/fish_1.png"  style="visibility:hidden;"></image>
+				<image id="fishF_2"   width="71" height="60" xlink:href="Fish/fish_2.png"  style="visibility:hidden;"></image>
+				<image id="fishF_3"   width="71" height="60" xlink:href="Fish/fish_3.png"  style="visibility:hidden;"></image>
+				<image id="fishF_4"   width="71" height="60" xlink:href="Fish/fish_4.png"  style="visibility:hidden;"></image>
+				<image id="fishF_5"   width="71" height="60" xlink:href="Fish/fish_5.png"  style="visibility:hidden;"></image>
+				<image id="fishF_6"   width="71" height="60" xlink:href="Fish/fish_6.png"  style="visibility:hidden;"></image>
+				<image id="fishF_7"   width="71" height="60" xlink:href="Fish/fish_7.png"  style="visibility:hidden;"></image>
+				<image id="fishF_8"   width="71" height="60" xlink:href="Fish/fish_8.png"  style="visibility:hidden;"></image>
+				<image id="fishF_9"   width="71" height="60" xlink:href="Fish/fish_9.png"  style="visibility:hidden;"></image>
+				<image id="fishF_10"  width="71" height="60" xlink:href="Fish/fish_10.png" style="visibility:hidden;"></image>
+				<image id="fishF_11"  width="71" height="60" xlink:href="Fish/fish_11.png" style="visibility:hidden;"></image>
+				<image id="fishF_12"  width="71" height="60" xlink:href="Fish/fish_12.png" style="visibility:hidden;"></image>
+				<image id="fishF_13"  width="71" height="60" xlink:href="Fish/fish_13.png" style="visibility:hidden;"></image>
+				<image id="fishF_14"  width="71" height="60" xlink:href="Fish/fish_14.png" style="visibility:hidden;"></image>
+				<image id="fishF_15"  width="71" height="60" xlink:href="Fish/fish_15.png" style="visibility:hidden;"></image>
+				<image id="fishF_16"  width="71" height="60" xlink:href="Fish/fish_16.png" style="visibility:hidden;"></image>
+				<image id="fishF_17"  width="71" height="60" xlink:href="Fish/fish_17.png" style="visibility:hidden;"></image>
+				<image id="fishF_18"  width="71" height="60" xlink:href="Fish/fish_18.png" style="visibility:hidden;"></image>
+				<image id="fishF_19"  width="71" height="60" xlink:href="Fish/fish_19.png" style="visibility:hidden;"></image>
+				<image id="fishF_20"  width="71" height="60" xlink:href="Fish/fish_20.png" style="visibility:hidden;"></image>
+				<image id="fishF_21"  width="71" height="60" xlink:href="Fish/fish_21.png" style="visibility:hidden;"></image>
+				<image id="fishF_22"  width="71" height="60" xlink:href="Fish/fish_22.png" style="visibility:hidden;"></image>
+				<image id="fishF_23"  width="71" height="60" xlink:href="Fish/fish_23.png" style="visibility:hidden;"></image>
+
+				<set id="fish_1"   xlink:href="#fishF_1"  attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_1"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_1.end"  fill="freeze"></set>
+				<set id="fish_2"   xlink:href="#fishF_2"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_1.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_2"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_2.end"  fill="freeze"></set>
+				<set id="fish_3"   xlink:href="#fishF_3"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_2.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_3"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_3.end"  fill="freeze"></set>
+				<set id="fish_4"   xlink:href="#fishF_4"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_3.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_4"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_4.end"  fill="freeze"></set>
+				<set id="fish_5"   xlink:href="#fishF_5"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_4.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_5"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_5.end"  fill="freeze"></set>
+				<set id="fish_6"   xlink:href="#fishF_6"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_5.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_6"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_6.end"  fill="freeze"></set>
+				<set id="fish_7"   xlink:href="#fishF_7"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_6.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_7"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_7.end"  fill="freeze"></set>
+				<set id="fish_8"   xlink:href="#fishF_8"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_7.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_8"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_8.end"  fill="freeze"></set>
+				<set id="fish_9"   xlink:href="#fishF_9"  attributeName="visibility" attributeType="CSS" to="visible" begin="fish_8.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_9"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_9.end"  fill="freeze"></set>
+				<set id="fish_10"  xlink:href="#fishF_10" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_9.end"  dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_10" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_10.end" fill="freeze"></set>
+				<set id="fish_11"  xlink:href="#fishF_11" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_10.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_11" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_11.end" fill="freeze"></set>
+				<set id="fish_12"  xlink:href="#fishF_12" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_11.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_12" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_12.end" fill="freeze"></set>
+				<set id="fish_13"  xlink:href="#fishF_13" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_12.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_13" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_13.end" fill="freeze"></set>
+				<set id="fish_14"  xlink:href="#fishF_14" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_13.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_14" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_14.end" fill="freeze"></set>
+				<set id="fish_15"  xlink:href="#fishF_15" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_14.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_15" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_15.end" fill="freeze"></set>
+				<set id="fish_16"  xlink:href="#fishF_16" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_15.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_16" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_16.end" fill="freeze"></set>
+				<set id="fish_17"  xlink:href="#fishF_17" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_16.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_17" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_17.end" fill="freeze"></set>
+				<set id="fish_18"  xlink:href="#fishF_18" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_17.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_18" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_18.end" fill="freeze"></set>
+				<set id="fish_19"  xlink:href="#fishF_19" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_18.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_19" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_19.end" fill="freeze"></set>
+				<set id="fish_20"  xlink:href="#fishF_20" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_19.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_20" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_20.end" fill="freeze"></set>
+				<set id="fish_21"  xlink:href="#fishF_21" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_20.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_21" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_21.end" fill="freeze"></set>
+				<set id="fish_22"  xlink:href="#fishF_22" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_21.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_22" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_22.end" fill="freeze"></set>
+				<set id="fish_23"  xlink:href="#fishF_23" attributeName="visibility" attributeType="CSS" to="visible" begin="fish_22.end" dur="0.1s" fill="freeze"></set>
+				<set               xlink:href="#fishF_23" attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_23.end" fill="freeze"
+							       onbegin="Fish.onEnd();"></set>
+
+				<set id="fish_wait"  xlink:href="#fishF_23" attributeName="visibility" attributeType="CSS" to="hidden"  begin="indefinite" dur="4s" fill="freeze"
+								   onend="Fish.onEnd();"></set>
+			</g>
+			<script type="text/javascript">
+				var Fish = new AnimatronicConstructor("fish", {
+					"jump": ["fish_1"],
+					"jumpAndWait": ["fish_1", "fish_wait"]
+				});
+			</script>
+		</svg>
 	</div>
 
 	<script>
@@ -314,6 +405,8 @@
 		{
             if(currentRunDirection != dir)
             {
+				Cat.Cancel();
+				//Cat.onEnd();
                 currentRunDirection = dir;
                 switch (dir)
                 {
@@ -359,6 +452,7 @@
 		</g>
 	</svg>
 	<div class="scene" id="area_1"></div>
+	<div class="scene" id="area_2"></div>
 	<svg class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
 		<use id="frontClass" xlink:href="#backClass" clip-path="url(#clipArea)"></use>
 		<defs>
@@ -370,11 +464,15 @@
 </div>
 	<script>
 		$('#area_1')[0].appendChild($('#actorCat')[0]);
+		$('#area_2')[0].appendChild($('#actorFish')[0]);
 	</script>
 <br/>
 
 	<div class="controlPanel">
 		<button onclick="Cat.setAnimation('roar', setLoop);">Roar</button>
+		<button onclick="Fish.setAnimation('jump');">Jump</button>
+		<button onclick="Fish.setAnimationLoop('jumpAndWait');">Jump Loop</button>
+		<button id="cancel">Cancel</button>
 	</div>
 </body>
 </html>

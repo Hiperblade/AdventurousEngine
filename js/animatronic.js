@@ -140,4 +140,9 @@ function AnimatronicConstructor(mainElementId, flows)
     this.forceAnimation = _forceAnimation;
     this.forceAnimationLoop = _forceAnimationLoop;
     //this.getCurrentAnimation = _getCurrentAnimation;
+
+	this.Cancel = function()
+	{
+		$('#cancel').click();
+	}
 }
