@@ -53,7 +53,13 @@
 	<svg xmlns="http://www.w3.org/2000/svg">
 		<g id="cat" class="actor">
 			<!-- Sit -->
-			<image id="catF_s_1" width="81" height="48" xlink:href="Cat/cat_s_1.png" style="visibility:hidden;"></image>
+			<image id="catF_s" width="81" height="48" xlink:href="Cat/cat_s.gif" style="visibility:hidden;"></image>
+
+			<set id="cat_s_1"  xlink:href="#catF_s" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"  dur="1.4s" fill="freeze"></set>
+			<!--set               xlink:href="#catF_s" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_s_1.end" fill="freeze"
+							   onbegin="Cat.onEnd();"></set-->
+
+			<!--image id="catF_s_1" width="81" height="48" xlink:href="Cat/cat_s_1.png" style="visibility:hidden;"></image>
 			<image id="catF_s_2" width="81" height="48" xlink:href="Cat/cat_s_2.png" style="visibility:hidden;"></image>
 			<image id="catF_s_3" width="81" height="48" xlink:href="Cat/cat_s_3.png" style="visibility:hidden;"></image>
 			<set id="cat_s_1"  xlink:href="#catF_s_1" attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"  dur="0.1s" fill="freeze"></set>
@@ -62,7 +68,7 @@
 			<set               xlink:href="#catF_s_2" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_s_2.end" fill="freeze"></set>
 			<set id="cat_s_3"  xlink:href="#catF_s_3" attributeName="visibility" attributeType="CSS" to="visible" begin="cat_s_2.end" dur="0.1s" fill="freeze"></set>
 			<set               xlink:href="#catF_s_3" attributeName="visibility" attributeType="CSS" to="hidden"  begin="cat_s_3.end" fill="freeze"
-							   onbegin="Cat.onEnd();"></set>
+							   onbegin="Cat.onEnd();"></set-->
 
 			<!-- Sit Roar -->
 			<image id="catF_s_r_1" width="81" height="48" xlink:href="Cat/cat_s_r_1.png" style="visibility:hidden;"></image>
@@ -216,7 +222,19 @@
 	<div class="fish" id="actorFish">
 		<svg xmlns="http://www.w3.org/2000/svg">
 			<g id="fish" class="fish">
-				<!-- Jump -->
+				<!-- Sit -->
+				<defs>
+					<image id="fishD"   width="71" height="60" xlink:href="Fish/fish.gif"></image>
+				</defs>
+				<!--image id="fishF"   width="71" height="60" xlink:href="Fish/fish.gif"  style="visibility:hidden;"></image-->
+
+				<!--set id="fish_x"   xlink:href="#fishF"  attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"  dur="2.3s" fill="freeze"></set-->
+				<!--set               xlink:href="#fishF"  attributeName="visibility" attributeType="CSS" to="hidden"  begin="fish_x.end"  dur="0.01s"fill="freeze"></set-->
+
+				<use id="fishF" xlink:href="#fishD" style="visibility:hidden;"></use>
+				<set id="fish_x"   xlink:href="#fishF"  attributeName="visibility" attributeType="CSS" to="visible" begin="indefinite"  dur="2.3s" fill="freeze"></set>
+				<set               xlink:href="#fishF"  attributeName="xlink:href" attributeType="CSS" to="#fishF_10"  begin="fish_x.end"  dur="0.01s"fill="freeze"></set>
+
 				<image id="fishF_1"   width="71" height="60" xlink:href="Fish/fish_1.png"  style="visibility:hidden;"></image>
 				<image id="fishF_2"   width="71" height="60" xlink:href="Fish/fish_2.png"  style="visibility:hidden;"></image>
 				<image id="fishF_3"   width="71" height="60" xlink:href="Fish/fish_3.png"  style="visibility:hidden;"></image>
@@ -294,8 +312,8 @@
 			</g>
 			<script type="text/javascript">
 				var Fish = new AnimatronicConstructor("fish", {
-					"jump": ["fish_1"],
-					"jumpAndWait": ["fish_1", "fish_wait"]
+					"jump": ["fish_x"],
+					"jumpAndWait": ["fish_x", "fish_wait"]
 				});
 			</script>
 		</svg>
