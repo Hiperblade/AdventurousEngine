@@ -4,6 +4,7 @@
     <title></title>
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/actor.js"></script>
+    <script type="text/javascript" src="js/director.js"></script>
     <script type="text/javascript" src="js/engine.js"></script>
 	<style TYPE="text/css">
 		.actor
@@ -14,6 +15,15 @@
 			width: 81px;
 			height: 48px;
 		}
+
+        .actor2
+        {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            width: 81px;
+            height: 48px;
+        }
 
 		.fish
 		{
@@ -57,7 +67,7 @@
 	</svg>
 	<div class="scene" id="area_1">
         <canvas id="Pesce" class="fish"></canvas>
-
+        <canvas id="Gatto2" class="actor2"></canvas>
         <canvas id="Gatto" class="actor"></canvas>
 	</div>
 	<svg class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
@@ -74,55 +84,64 @@
 <br/>
 
     <script>
+        var suits = {
+            "fish": { width: 71, height: 60, sprite: "sprites/Fish.png", animations: {
+                "go": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+            }, loadCallback: null },
+
+            "cat": { width: 81, height: 48, sprite: "sprites/Cat.png", animations: {
+                "Down": [0],
+                "runDown": [1, 2, 3, 4, 5],
+                "Left": [6],
+                "runLeft": [7, 8, 9, 10, 11],
+                "Right": [12],
+                "runRight": [13, 14, 15, 16, 17],
+                "Up": [18],
+                "runUp": [19, 20, 21, 22, 23],
+                "stand": [24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 30, 30],
+                "miao": [31, 32, 32, 33, 33, 33, 33, 31]
+            }, loadCallback: null }
+        };
+
+        //------------------------------
+
+        var director = new Director( function(actor){ moveActor(actor); } );
+
+
+        var pesciolino = Actor.create("Pesce", suits["fish"]);
+        director.addActor(pesciolino);
+        var gattino = Actor.create("Gatto", suits["cat"]);
+        director.addActor(gattino);
+
+        var gattaccio = Actor.create("Gatto2", suits["cat"]);
+        director.addActor(gattaccio);
+
+
         var Direction = { Up: 'Up', Down: 'Down', Left: 'Left', Right: 'Right' };
-
-        var pesciolino = new Actor("Pesce", 71, 60, "sprites/Fish.png", {
-            "jump": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-            "test": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 23]
-        });
-
-        var gattino = new Actor("Gatto", 81, 48, "sprites/Cat.png", {
-            "Down": [0],
-            "runDown": [1, 2, 3, 4, 5],
-            "Left": [6],
-            "runLeft": [7, 8, 9, 10, 11],
-            "Right": [12],
-            "runRight": [13, 14, 15, 16, 17],
-            "Up": [18],
-            "runUp": [19, 20, 21, 22, 23],
-            "stand": [24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 30, 30],
-            "miao": [31, 32, 32, 33, 33]
-        });
-
-        window.setInterval("nextStep();", 100);
 
         function go()
         {
-            //window.setInterval("nextStep();", 100);
-            pesciolino.setNextAnimation("jump");
-            //pesciolino.setNextAnimation("test");
+            pesciolino.setNextAnimation("go", null, function(){ gattino.setAnimation("miao"); gattino.setNextAnimationLoop("stand"); } );
+
+            gattaccio.setAnimationLoop("runLeft");
         }
 
         gattino.setAnimationLoop("stand");
 
-        function nextStep()
-        {
-            pesciolino.nextFrame();
-            gattino.nextFrame();
-
-            moveActor();
-        }
-
         // --------------------------------------------------
 
-        function moveActor()
+        function moveActor(actor)
         {
+            if(actor != gattino)
+            {
+                return;
+            }
+
             if(targetLocation != null)
             {
-                var actor = $("#Gatto");
-                var pos = actor.position();
-                var deltaL = targetLocation.x - pos.left;
-                var deltaT = targetLocation.y - pos.top;
+                var pos = actor.getPosition();
+                var deltaL = targetLocation.x - pos.x;
+                var deltaT = targetLocation.y - pos.y;
                 if(Math.abs(deltaL) < 5)
                     deltaL = 0;
                 if(Math.abs(deltaT) < 5)
@@ -160,8 +179,8 @@
                 else
                 {
                     targetLocation = null;
-                    gattino.setAnimationLoop("stand");
                     currentRunDirection = null;
+                    gattino.setAnimationLoop("stand");
                 }
             }
         }
@@ -201,9 +220,8 @@
                     break;
             }
 
-            var pos = actor.position();
-            actor.css('left', (pos.left + x) + 'px');
-            actor.css('top', (pos.top + y) + 'px');
+            var pos = actor.getPosition();
+            actor.setPosition(pos.x + x, pos.y + y);
         }
 
         var currentRunDirection = null;

@@ -1,5 +1,6 @@
 function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadCallback)
 {
+    var _canvas;
     var _context;
     var _image;
     var _framePerRow = 0;
@@ -19,10 +20,10 @@ function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadC
         _width = frameWidth;
         _height = frameHeight;
 
-        var canvas = $("#" + canvasId)[0];
-        canvas.width = _width;
-        canvas.height = _height;
-        _context = canvas.getContext('2d');
+        _canvas = $("#" + canvasId);
+        _canvas[0].width = _width;
+        _canvas[0].height = _height;
+        _context = _canvas[0].getContext('2d');
 
         // load image
         var image = $('<img src="'+ spriteImage +'" style="display:none;">');
@@ -103,6 +104,18 @@ function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadC
         }
     };
 
+    var _getPosition = function()
+    {
+        var tmp = _canvas.position();
+        return { x: tmp.left, y: tmp.top };
+    };
+
+    var _setPosition = function(x, y)
+    {
+        _canvas.css('left', x + 'px');
+        _canvas.css('top', y + 'px');
+    };
+
     var _setNextAnimationLoop = function (name, beginCallback, endCallback)
     {
         _setNextAnimation(name, beginCallback, endCallback, -1);
@@ -156,6 +169,9 @@ function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadC
     /* *************************************** */
 
     this.nextFrame = _nextFrame;
+    this.getPosition = _getPosition;
+    this.setPosition = _setPosition;
+
     this.setNextAnimation = _setNextAnimation;
     this.setNextAnimationLoop = _setNextAnimationLoop;
     this.setAnimation = _setAnimation;
@@ -164,4 +180,9 @@ function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadC
     /* *************************************** */
 
     _initialize(canvasId, frameWidth, frameHeight, spriteImage, loadCallback);
+}
+
+Actor.create = function(canvasId, data)
+{
+    return new Actor(canvasId, data.width, data.height, data.sprite, data.animations, data.loadCallback);
 }
