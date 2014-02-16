@@ -185,4 +185,4 @@ function Actor(canvasId, frameWidth, frameHeight, spriteImage, animations, loadC
 Actor.create = function(canvasId, data)
 {
     return new Actor(canvasId, data.width, data.height, data.sprite, data.animations, data.loadCallback);
-}
+};

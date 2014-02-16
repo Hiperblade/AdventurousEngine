@@ -1,23 +1,53 @@
-function Director(moveActor)
+function Director(nextStepCallBack)
 {
-    var _actors = [];
+    var _actors = {};
 
-    var _addActor = function(actor)
+    var _addActor = function(id, data)
     {
-        _actors.push(actor);
+        _actors[id] = Actor.create(id, data);
     };
 
+    var _getActor = function(id)
+    {
+        return _actors[id];
+    };
+/*
+    var _action = function()
+    {
+        var actor = _actors[0];
+
+        var pos = actor.getPosition();
+        actor.setPosition(pos);
+    };
+*/
     var _nextStep = function()
     {
-        for(var i in _actors)
+        for(var id in _actors)
         {
-            _actors[i].nextFrame();
-
-            moveActor(_actors[i]);
+            if(_actors.hasOwnProperty(id))
+            {
+                _actors[id].nextFrame();
+            }
         }
+
+        nextStepCallBack();
     };
 
-    window.setInterval(function(){ _nextStep(); }, 100);
+    window.setInterval(function(){ _nextStep(); }, Director.StepInterval);
 
     this.addActor = _addActor;
+    this.getActor = _getActor;
+}
+
+Director.StepInterval = 100;
+
+
+function Action(actor, start, duration, destination, animation, nextAnimationLoop)
+{
+
+}
+
+function Screenplay()
+{
+
 }

@@ -65,6 +65,12 @@
 			<image width="540" height="338" xlink:href="scenes/scene.jpg"></image>
 		</g>
 	</svg>
+
+    <svg id="walkingArea" class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+        <path style="fill:#FFFFFF; stroke:none;"
+              d="m 0.50507627,95.747722 91.92388173,0.505076 55.053312,1.515229 67.17515,7.071063 68.69037,10.60661 31.8198,7.07106 24.24367,9.59645 15.65736,10.60661 -8.08122,4.54568 -52.52793,6.56599 13.63706,8.5863 c 0,0 -5.55584,3.53553 -9.59645,3.53553 -4.04061,0 -34.34519,-0.50507 -34.34519,-0.50507 l -12.12183,8.08122 c 0,0 -16.66752,5.55584 -18.68782,6.06091 -2.02031,0.50508 -54.54824,11.61676 -54.54824,11.61676 l -57.57869,13.63706 -35.86042,1.51523 -85.35789,0 0,-3.03046 z"></path>
+    </svg>
+
 	<div class="scene" id="area_1">
         <canvas id="Pesce" class="fish"></canvas>
         <canvas id="Gatto2" class="actor2"></canvas>
@@ -78,6 +84,14 @@
 			</clipPath>
 		</defs>
 	</svg>
+
+
+
+    <canvas>
+
+
+    </canvas>
+
 </div>
 
 
@@ -105,17 +119,15 @@
 
         //------------------------------
 
-        var director = new Director( function(actor){ moveActor(actor); } );
+        var director = new Director( function(){ moveActor(); } );
 
+        director.addActor("Pesce", suits["fish"]);
+        director.addActor("Gatto", suits["cat"]);
+        director.addActor("Gatto2", suits["cat"]);
 
-        var pesciolino = Actor.create("Pesce", suits["fish"]);
-        director.addActor(pesciolino);
-        var gattino = Actor.create("Gatto", suits["cat"]);
-        director.addActor(gattino);
-
-        var gattaccio = Actor.create("Gatto2", suits["cat"]);
-        director.addActor(gattaccio);
-
+        var pesciolino = director.getActor("Pesce");
+        var gattino = director.getActor("Gatto");
+        var gattaccio = director.getActor("Gatto2");
 
         var Direction = { Up: 'Up', Down: 'Down', Left: 'Left', Right: 'Right' };
 
@@ -130,12 +142,9 @@
 
         // --------------------------------------------------
 
-        function moveActor(actor)
+        function moveActor()
         {
-            if(actor != gattino)
-            {
-                return;
-            }
+            var actor = gattino;
 
             if(targetLocation != null)
             {
@@ -180,7 +189,7 @@
                 {
                     targetLocation = null;
                     currentRunDirection = null;
-                    gattino.setAnimationLoop("stand");
+                    actor.setAnimationLoop("stand");
                 }
             }
         }
