@@ -66,10 +66,10 @@
 		</g>
 	</svg>
 
-    <svg id="walkingArea" class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+    <!--svg id="walkingArea" class="scene" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
         <path style="fill:#FFFFFF; stroke:none;"
               d="m 0.50507627,95.747722 91.92388173,0.505076 55.053312,1.515229 67.17515,7.071063 68.69037,10.60661 31.8198,7.07106 24.24367,9.59645 15.65736,10.60661 -8.08122,4.54568 -52.52793,6.56599 13.63706,8.5863 c 0,0 -5.55584,3.53553 -9.59645,3.53553 -4.04061,0 -34.34519,-0.50507 -34.34519,-0.50507 l -12.12183,8.08122 c 0,0 -16.66752,5.55584 -18.68782,6.06091 -2.02031,0.50508 -54.54824,11.61676 -54.54824,11.61676 l -57.57869,13.63706 -35.86042,1.51523 -85.35789,0 0,-3.03046 z"></path>
-    </svg>
+    </svg-->
 
 	<div class="scene" id="area_1">
         <canvas id="Pesce" class="fish"></canvas>
@@ -85,7 +85,8 @@
 		</defs>
 	</svg>
 
-
+	<!--svg class="scene" id="walker" xmlns="http://www.w3.org/2000/svg" width="300" height="300"><path d="m 0.50507627,95.747722 91.92388173,0.505076 55.053312,1.515229 67.17515,7.071063 68.69037,10.60661 31.8198,7.07106 24.24367,9.59645 15.65736,10.60661 -8.08122,4.54568 -52.52793,6.56599 13.63706,8.5863 c 0,0 -5.55584,3.53553 -9.59645,3.53553 -4.04061,0 -34.34519,-0.50507 -34.34519,-0.50507 l -12.12183,8.08122 c 0,0 -16.66752,5.55584 -18.68782,6.06091 -2.02031,0.50508 -54.54824,11.61676 -54.54824,11.61676 l -57.57869,13.63706 -35.86042,1.51523 -85.35789,0 0,-3.03046 z"></path></svg-->
+	<!--svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><path style="fill:#000000; stroke:none;" d="m 0.50507627,95.747722 91.92388173,0.505076 55.053312,1.515229 67.17515,7.071063 68.69037,10.60661 31.8198,7.07106 24.24367,9.59645 15.65736,10.60661 -8.08122,4.54568 -52.52793,6.56599 13.63706,8.5863 c 0,0 -5.55584,3.53553 -9.59645,3.53553 -4.04061,0 -34.34519,-0.50507 -34.34519,-0.50507 l -12.12183,8.08122 c 0,0 -16.66752,5.55584 -18.68782,6.06091 -2.02031,0.50508 -54.54824,11.61676 -54.54824,11.61676 l -57.57869,13.63706 -35.86042,1.51523 -85.35789,0 0,-3.03046 z"></path></svg-->
 
     <canvas>
 
@@ -247,7 +248,9 @@
         function goTo()
         {
             // base del gatto (44; 37)
-            targetLocation = { x: currentMousePos.x - 44, y: currentMousePos.y - 37 };
+			var destination = wa.findPoint({x: currentMousePos.x, y: currentMousePos.y })
+
+            targetLocation = { x: destination.x - 44, y: destination.y - 37 };
         }
 
         var currentMousePos = { x: -1, y: -1 };
@@ -256,7 +259,102 @@
             currentMousePos.y = event.pageY;
         });
 
-    </script>
+		var pathString = "m 0.50507627,95.747722 91.92388173,0.505076 55.053312,1.515229 67.17515,7.071063 68.69037,10.60661 31.8198,7.07106 24.24367,9.59645 15.65736,10.60661 -8.08122,4.54568 -52.52793,6.56599 13.63706,8.5863 c 0,0 -5.55584,3.53553 -9.59645,3.53553 -4.04061,0 -34.34519,-0.50507 -34.34519,-0.50507 l -12.12183,8.08122 c 0,0 -16.66752,5.55584 -18.68782,6.06091 -2.02031,0.50508 -54.54824,11.61676 -54.54824,11.61676 l -57.57869,13.63706 -35.86042,1.51523 -85.35789,0 0,-3.03046 z";
+
+		function WalkingArea(pathString)
+		{
+			var _walkingArea = [];
+			var _ctx;
+
+			var _initialize = function(pathString)
+			{
+				var tmp = pathString.split(" ");
+				for(var i = 1; i < tmp.length - 1; i++)
+				{
+					_walkingArea.push({x: parseFloat(tmp[i].split(",")[0]), y: parseFloat(tmp[i].split(",")[1])});
+				}
+
+				var canvas = $("<canvas></canvas>")[0];
+				_ctx = canvas.getContext("2d");
+				var img = new Image();
+				img.onload = function(){ _ctx.drawImage(img, 0, 0); };
+
+				var svg_xml;// = (new XMLSerializer()).serializeToString($("#walker")[0]);
+				svg_xml = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><path d="' + pathString + '"></path></svg>';
+				img.src = "data:image/svg+xml;base64," + btoa(svg_xml);
+			};
+
+			var _findPoint = function(destination, walkingArea)
+			{
+				var point;
+				var previousPoint;
+				var newDistance;
+				var newPoint;
+
+				var distance = 0;
+				var newDestination = destination;
+				if(!_isValid(destination))
+				{
+					for(var i = 0; i < walkingArea.length; i++)
+					{
+						point = walkingArea[i];
+
+						newDistance = _getDistance(point, destination);
+						if((distance == 0) || (newDistance < distance))
+						{
+							distance = newDistance;
+							newDestination = point;
+						}
+
+						if(i > 0)
+						{
+							previousPoint = walkingArea[i - 1];
+						}
+						else
+						{
+							previousPoint = walkingArea[walkingArea.length - 1];
+						}
+
+						newPoint = _getIntersection(destination, point, previousPoint);
+						if(_isValid(newPoint))
+						{
+							newDistance = _getDistance(newPoint, destination);
+							if(newDistance < distance)
+							{
+								distance = newDistance;
+								newDestination = newPoint;
+							}
+						}
+					}
+				}
+
+				return { x: Math.floor(newDestination.x), y: Math.floor(newDestination.y) };
+			};
+
+			var _isValid = function(point)
+			{
+				return _ctx.getImageData(Math.floor(point.x), Math.floor(point.y), 1, 1).data[3] > 0;
+			};
+
+			var _getDistance = function(pointA, pointB)
+			{
+				return Math.sqrt(Math.pow(pointA.x - pointB.x, 2) + Math.pow(pointA.y - pointB.y, 2));
+			};
+
+			var _getIntersection = function(point, pointA, pointB)
+			{
+				var m = (pointB.y - pointA.y)/(pointB.x - pointA.x);
+				var x = (point.x + (m * point.y)) / (Math.pow(m, 2) + 1);
+				return { x: x, y: (m * x) };
+			};
+
+			this.findPoint = function(destination) { return _findPoint(destination, _walkingArea); }
+
+			_initialize(pathString);
+		}
+
+		var wa = new WalkingArea(pathString);
+	</script>
 
 	<div class="controlPanel">
 		<button onclick="go();">Test</button>
