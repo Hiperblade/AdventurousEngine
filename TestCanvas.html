@@ -320,7 +320,7 @@
                         }
                         if(step <= west)
                         {
-                            newDestination = { x: destination.x - gap, y: destination.y - gap };
+                            newDestination = { x: destination.x - gap + 2, y: destination.y - gap + 2};
                             if(_isValid(newDestination))
                             {
                                 return newDestination;
@@ -328,7 +328,7 @@
                         }
                         if(step <= east)
                         {
-                            newDestination = { x: destination.x + gap, y: destination.y - gap };
+                            newDestination = { x: destination.x + gap - 2, y: destination.y - gap + 2};
                             if(_isValid(newDestination))
                             {
                                 return newDestination;
@@ -344,7 +344,7 @@
                         }
                         if(step <= west)
                         {
-                            newDestination = { x: destination.x - gap, y: destination.y + gap };
+                            newDestination = { x: destination.x - gap + 2, y: destination.y + gap - 2};
                             if(_isValid(newDestination))
                             {
                                 return newDestination;
@@ -352,7 +352,7 @@
                         }
                         if(step <= east)
                         {
-                            newDestination = { x: destination.x + gap, y: destination.y + gap };
+                            newDestination = { x: destination.x + gap - 2, y: destination.y + gap - 2};
                             if(_isValid(newDestination))
                             {
                                 return newDestination;
